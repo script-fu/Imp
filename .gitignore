@@ -1,2 +1,7 @@
 /.flatpak-builder/
 /build/
+/imp-flatpak.log
+/flatpak-install/
+/build-flatpak-Imp.sh
+/launch-flatpak-Imp-workspace.sh
+/org.gimp.Imp.json
