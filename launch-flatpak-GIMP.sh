@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
-# launch a flatpak version of GIMP
-flatpak run org.gimp.GIMP
+# launch the flatpak version of GIMP, using a different workspace
+workspace=$HOME/.config/GIMP/Master-Flatpak
+mkdir -p $workspace
+
+# launch a flatpak version of GIMP, with a specified workspace
+flatpak --env=GIMP3_DIRECTORY="$workspace" run org.gimp.GIMP --verbose --console-messages -s
+
+

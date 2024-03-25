@@ -17,7 +17,7 @@ echo "Changing to script directory: ${SCRIPT_DIR}"
 cd "${SCRIPT_DIR}"
 
 # build options for the flatpak builder
-export BUILD_OPTIONS="--ccache --keep-build-dirs --force-clean"
+export BUILD_OPTIONS="--system --ccache --keep-build-dirs --force-clean"
 
 # architectures supported with GIMP flatpak are one of 'x86_64' or 'aarch64'
 export ARCH="x86_64"
@@ -32,7 +32,7 @@ export MANIFEST="${SCRIPT_DIR}/org.gimp.GIMP.json"
 echo -e "\n************* FLATPAK BUILD STARTED *****************\n"
 
 # build a flatpak version of GIMP, using source code specified by the manifest
-flatpak-builder $BUILD_OPTIONS --arch="$ARCH" "${FLATPAKDIR}" \
+sudo flatpak-builder $BUILD_OPTIONS --arch="$ARCH" "${FLATPAKDIR}" \
                 "${MANIFEST}" 2>&1 \
                | tee "$HOME/GIMP-flatpak.log"
 
@@ -43,8 +43,8 @@ fi
 
 echo -e "\n************* FLATPAK BUILD FINISHED *****************\n"
 
-# Install a flatpak version of GIMP, from the pre-built flatpak
-flatpak-builder --user --install --force-clean "${FLATPAKDIR}" "${MANIFEST}"
+# Install a flatpak version of GIMP to 'system, from the pre-built flatpak
+sudo flatpak-builder --system --install --force-clean "${FLATPAKDIR}" "${MANIFEST}"
 
 echo -e "\n************* INSTALL FINISHED *****************\n"
 
