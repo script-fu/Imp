@@ -5,17 +5,17 @@ This is an **unofficial** fork of the [GIMP Flatpak repository](https://github.c
 [Flatpak](https://flatpak.org/) is a software utility for packaging and running Linux applications.
 Each Flatpak application is contained in its own sandboxed environment, which includes its dependencies and runtime. This isolation allows you to have different versions of the same software installed side by side without interference. Using Flatpak also provides a structured and reproducible way to compile applications.
 
-There is a 'manifest' file in [this repository](https://github.com/script-fu/Imp), **org.gimp.GIMP.json**,  It provides a way to describe the application and its environment so that it can be packaged as a Flatpak. This is also a neat way to build GIMP locally. Within the manifest, right at the end, GIMP is built from a 'source' of code. This can be the official source, or your own remote repo, or a local branch.
+There is a 'manifest' file, **org.gimp.GIMP.json**, in [this repository](https://github.com/script-fu/Imp), which is an adapted version of [this](https://gitlab.gnome.org/GNOME/gimp/-/tree/master/build/flatpak?ref_type=heads) nightly one. It provides a way to describe the application and its environment so that it can be packaged as a Flatpak. This is also a neat way to build GIMP locally. Within the manifest, right at the end, GIMP is built from a 'source' of code. This can be the official source, or your own remote repo, or a local branch.
 
-If you would like to take the risk of building Imp, are willing to trust a stranger on the internet, and have other security features in place, don't mind being hacked, or having your data wiped, then you can build Imp by cloning this repository and adjusting the manifest file. It's not recommended by me, I do recommend playing around with the verified source code for fun and education.
+If you would like to take the risk of building Imp, are willing to trust a stranger on the internet, and have other security features in place, don't mind being hacked, or having your data wiped, then you can build Imp by cloning [this](https://github.com/script-fu/Imp) repository and adjusting the manifest file. It's **not** recommended by me, I do recommend playing around with the verified source code for fun and education.
 
 ## Prepare the System
 If you are going to build GIMP as a Flatpak, you need to have the latest parts it needs to be assembled.  Here's a rough guide to this process for a Debian based, Linux Mint platform. It will probably be a unique process for your system, good luck.
 
-Sourced from:
-<https://gitlab.gnome.org/GNOME/gimp/tree/master/build/flatpak>
-<https://developer.gimp.org/core/setup/build/linux/>
-
+Sourced from:  
+* <https://gitlab.gnome.org/GNOME/gimp/tree/master/build/flatpak>  
+* <https://developer.gimp.org/core/setup/build/linux/>
+  
 ```sh
 sudo apt build-dep gimp
 ```
@@ -36,13 +36,24 @@ This is another topic altogether, you'll need some [basic knowledge](https://scr
 cd /yourfolder
 git clone https://github.com/script-fu/Imp.git
 ```
-##### Download the submodules and update them, this may not work...
+##### Download the submodules and update them 
 ```sh
 git submodule update --init --recursive
 git submodule update --remote --merge
 
 ```
-##### Open the file _org.gimp.GIMP.json_ in a text editor, find the lines that specify the official, the verified and trustable source, the safe code
+##### Open the file _org.gimp.GIMP.json_ in a text editor 
+
+Find this top line:
+```
+"app-id": "org.gimp.GIMP",
+```
+Change to:
+```
+"app-id": "org.gimp.Imp",
+```
+
+find the lines that specify the official, the verified and trustable source, the safe code
 ```json
 "type": "git",
 "url": "https://gitlab.gnome.org/GNOME/gimp.git",
@@ -55,13 +66,6 @@ Change to:
 "type": "git",
 "url": "https://gitlab.gnome.org/pixelmixer/gimp-plugins.git",
 "branch": "Imp"
-```
-
-##### Much Better, Play with the Verified Source Code Locally
-```json
-"type": "git",
-"url": "file:///path/to/your/repo/for/building/gimp",
-"branch": "YourBranch"
 ```
 
 ## What do the shell scripts do?
@@ -108,7 +112,7 @@ You can copy your gimprc to the Imp .config location. **Do not** copy your gimpr
 **Use at your own risk, it's unofficial, it’s not GIMP stable, not even GIMP Dev.**
 
 ## More about Imp
-https://script-fu.github.io/2023/11/21/ProjectImp.html
+<https://script-fu.github.io/2023/11/21/ProjectImp.html>
 
 
 
